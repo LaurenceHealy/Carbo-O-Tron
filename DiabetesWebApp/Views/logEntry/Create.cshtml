@@ -1,0 +1,49 @@
+﻿@model logEntry
+
+<form method="post">
+    <div class="border-dark p-3 mt-4 bg-primary">
+        <div class="row pb-2">
+            <h2 class="text-info">New Log Entry</h2>
+        </div>    
+        <table>
+            <tr>
+                <td class="p-2">
+                    <label asp-for="dateTime"></label>
+                    <input asp-for="dateTime" class="form-control" />
+                    <span asp-validation-for="dateTime" class="text-danger"></span>
+                </td>
+                <td class="p-2">
+                    <label asp-for="entryBg"></label>
+                    <input asp-for="entryBg" class="form-control" />
+                    <span asp-validation-for="entryBg" class="text-danger"></span>
+                </td>
+                <td class="p-2">
+                    <label asp-for="entryCarb"></label>
+                    <input asp-for="entryCarb" class="form-control" />                    
+                </td>
+                <td class="p-2">
+                    <label asp-for="entryInsulin"></label>
+                    <input asp-for="entryInsulin" class="form-control" />
+                    <span asp-validation-for="entryInsulin" class="text-danger"></span>
+                </td>
+            </tr>            
+        </table>
+        <div class="p-2">
+            <label asp-for="entryNote"></label>
+            <input asp-for="entryNote" class="form-control" />
+            <span asp-validation-for="entryNote" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-info mt-3" >
+            <i class="bi bi-save"></i> &nbsp; Save Log Entry
+        </button>
+        <a asp-controller="logEntry" asp-action="Index" class="btn btn-secondary mt-3">
+            <i class="bi bi-arrow-return-left"></i> &nbsp; Back to List
+        </a>
+    </div>    
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

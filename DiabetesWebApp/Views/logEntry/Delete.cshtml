@@ -1,0 +1,46 @@
+﻿@model logEntry
+
+<form method="post" asp-action="Delete">
+    <input asp-for="entryId" hidden />
+    <div class="border-dark p-3 mt-4 bg-primary">
+        <div class="row pb-2">
+            <h2 class="text-info">Delete Log Entry</h2>
+        </div>    
+        <table>
+            <tr>
+                <td class="p-2">
+                    <label asp-for="dateTime"></label>
+                    <input asp-for="dateTime" disabled class="form-control" />                    
+                </td>
+                <td class="p-2">
+                    <label asp-for="entryBg"></label>
+                    <input asp-for="entryBg" disabled class="form-control" />
+                </td>
+                <td class="p-2">
+                    <label asp-for="entryCarb"></label>
+                    <input asp-for="entryCarb" disabled class="form-control" />                    
+                </td>
+                <td class="p-2">
+                    <label asp-for="entryInsulin"></label>
+                    <input asp-for="entryInsulin" disabled class="form-control" />
+                </td>
+            </tr>            
+        </table>
+        <div class="p-2">
+            <label asp-for="entryNote"></label>
+            <input asp-for="entryNote" disabled class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-warning mt-3" >
+            <i class="bi bi-save"></i> &nbsp; Delete Log Entry
+        </button>
+        <a asp-controller="logEntry" asp-action="Index" class="btn btn-secondary mt-3">
+            <i class="bi bi-arrow-return-left"></i> &nbsp; Back to List
+        </a>
+    </div>    
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

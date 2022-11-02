@@ -1,0 +1,132 @@
+﻿@model IEnumerable<userSetting>
+@*@model userSetting*@
+
+@*@<form>
+    <div class="border-dark p-3 mt-4 bg-primary">
+        <div class="row pb-2">
+            <h2 class="text-info">Insulin Calculator</h2>
+        </div>
+        <table>
+            <tr>
+
+                <td class="p-2">
+                    <p><label>Blood Glucos Level:
+                        <input type="text" class="form-control" id="bgLevel" /></label></p>
+                </td>
+                <td class="p-2">
+                    <label>Carbohydrates</label>
+                    <input class="form-control" id="carbs" />
+                </td>
+                <td class="p-2">
+                    <label>Carb to Insulin Ratio</label>
+                     @foreach (var obj in Model)
+                    {
+                    <input class="form-control" id="carbRat" value="@obj.carbRatio" />
+                    }
+                </td>
+                <td class="p-2">
+                    <label>Target Blood Glucose Level</label>
+                    @foreach (var obj in Model)
+                    {
+                        <input class="form-control" id="tarBgl" value="@obj.targetBgl" />
+                    }
+                </td>
+                <td class="p-2">
+                    <label>Insulin Correction Factor</label>
+                    @foreach (var obj in Model)
+                    {
+                        <input class="form-control" id="corrFac" value="@obj.insulinCorrectionFactor" />
+                    }
+                </td>               
+            </tr>
+            <tr>       
+                <td class="p-2">
+                <input type="button" id="calculate" value="Calculate Insulin" />
+                    @*<i class="bi bi-save"></i> &nbsp; Calculate Insulin
+                
+                </td>
+                <td class="p-2">
+                    <label>Insulin Needed</label>
+                    <input class="form-control" id="insulin" />*
+                    <div id="insulin"></div>
+              </td>
+            </tr>
+        </table>
+    </div>
+</form>
+
+<script type="text/javascript">
+    function calcInsulin(){
+        let bgCorr = document.getElementById("bgLevel").value;
+        
+        
+        
+        document.getElementById("insulin").appendChild(bgCorr);
+    }
+    document.getElementById("calculate").addEventListener("click", calcInsulin);
+</script>*@
+
+<form>
+    <div class="border-dark p-3 mt-4 bg-primary">
+        <div class="row pb-2">
+            <h2 class="text-info">Insulin Calculator</h2>
+        </div>
+        <table>
+            <tr>
+                <td class="p-2">
+                    <label>Enter Blood Glucose Level:</label>
+                    <input class="form-control" type="number" id="bgLevel" />
+                </td>
+                <td class="p-2">
+                    <label>Carbohydrates</label>
+                    <input class="form-control" type="number" id="carbs" />
+                </td>
+                <td class="p-2">
+                    <label>Target Blood Glucose Level</label>
+                    @foreach (var obj in Model)
+                    {
+                        <input readonly class="form-control" id="tarBgl" value="@obj.targetBgl" />
+                    }
+                </td>
+                <td class="p-2">
+                    <label>Insulin Correction Factor</label>
+                    @foreach (var obj in Model)
+                    {
+                        <input readonly class="form-control" id="corrFac" value="@obj.insulinCorrectionFactor" />
+                    }
+                </td>
+                <td class="p-2">
+                    <label>Carb to Insulin Ratio</label>
+                    @foreach (var obj in Model)
+                    {
+                        <input readonly class="form-control" id="carbRat" value="@obj.carbRatio" />
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td class="p-2">
+                    <input type="button" class="btn btn-danger mt-3" id="calculate" value="Click to submit" />
+                </td>
+                <td class="p-2">
+                    <h3 class="text-danger" id="resultArea"></h3>
+                </td>
+            </tr>
+        </table>             
+    </div>
+</form> 
+<script type="text/javascript">       
+    function calc() {
+        let bgCorr = parseFloat(document.getElementById("bgLevel").value) - parseFloat(document.getElementById("tarBgl").value);
+        let corrBolus = bgCorr / parseFloat(document.getElementById("corrFac").value);
+        let unCorrDose = parseFloat(document.getElementById("carbs").value) / parseFloat(document.getElementById("carbRat").value)
+        let insulinDose = (unCorrDose + corrBolus).toFixed(2);
+
+
+        let display = document.getElementById("resultArea");
+
+        
+        display.innerText = "Number is " + insulinDose;
+     
+    }        
+    document.getElementById("calculate").addEventListener("click", calc);   
+</script>
